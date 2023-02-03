@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <!--Portfolio-->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Symbol</th>
+          <th scope="col">Name</th>
+          <th scope="col">Shares</th>
+          <th scope="col">Price</th>
+          <th scope="col">TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+          <!--Display portfolio via render arguments-->
+          {% for item in rows %}
+            <tr>
+                <td>{{ item["symbol"] }}</td>
+                <td>{{ item["name"] }}</td>
+                <td>{{ item["SUM(shares)"] }}</td>
+                <td>{{ item["price"] | usd }}</td>
+                <td class="total">{{ (item["price"] * item["SUM(shares)"]) | usd }}</td>
+            </tr>
+          {% endfor %}
+          <!--Display cash and total portfolio value-->
+          <tr>
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total">{{ cash | usd }}</td>
+          </tr>
+
+          <tr>
+            <td colspan="4"></td>
+            <td><strong>{{ total | usd }}</strong></td>
+          </tr>
+
+      </tbody>
+    </table>
+{% endblock %}
